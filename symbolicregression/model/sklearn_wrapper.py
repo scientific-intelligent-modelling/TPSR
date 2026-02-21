@@ -228,9 +228,15 @@ class SymbolicTransformerRegressor(BaseEstimator):
     def exchange_tree_features(self):
         top_k_features = self.top_k_features
         for dataset_id, candidates in self.tree.items():
+            if not candidates:
+                continue
             exchanges = {}
-            for i, feature in enumerate(top_k_features[dataset_id]):
-                exchanges["x_{}".format(i)]="x_{}".format(feature)
+            dataset_top_features = top_k_features[dataset_id]
+            if not dataset_top_features:
+                dataset_top_features = [i for i in range(10)]
+
+            for i, feature in enumerate(dataset_top_features):
+                exchanges["x_{}".format(i)] = "x_{}".format(feature)
             for candidate in candidates:
                 candidate["relabed_predicted_tree"] = exchange_node_values(candidate["predicted_tree"], exchanges)
 
