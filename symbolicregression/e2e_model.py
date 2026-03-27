@@ -9,7 +9,11 @@ import time
 class Transformer(nn.Module):
     def __init__(self, params, env, samples):
         super().__init__()
-        self.model = torch.load('./symbolicregression/weights/model.pt', weights_only=False)
+        model_path = './symbolicregression/weights/model.pt'
+        if torch.cuda.is_available():
+            self.model = torch.load(model_path, weights_only=False)
+        else:
+            self.model = torch.load(model_path, map_location=torch.device('cpu'), weights_only=False)
         self.first_dropout = nn.Dropout(0.1)
         self.params = params
         self.env = env

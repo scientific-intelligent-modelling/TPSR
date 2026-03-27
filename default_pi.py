@@ -134,6 +134,8 @@ class E2EHeuristic:
             top_k_tokens = self.model.top_k(input_ids,top_k = self.k)
 
             top_k_tokens = top_k_tokens.tolist()[0]
+            if not isinstance(top_k_tokens, list):
+                top_k_tokens = [top_k_tokens]
 
             if self.use_prefix_cache:
                 self.top_k_hash[tuple(state)] = top_k_tokens
@@ -288,6 +290,8 @@ class NesymresHeuristic:
             top_k_tokens = self.model.extract_top_k(input_ids,top_k = self.k)
 
             top_k_tokens = top_k_tokens.tolist()[0]
+            if not isinstance(top_k_tokens, list):
+                top_k_tokens = [top_k_tokens]
 
             return top_k_tokens
 
