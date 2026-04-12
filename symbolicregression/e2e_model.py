@@ -1,3 +1,4 @@
+import os
 from torch import nn
 import torch
 import numpy as np
@@ -9,7 +10,7 @@ import time
 class Transformer(nn.Module):
     def __init__(self, params, env, samples):
         super().__init__()
-        model_path = './symbolicregression/weights/model.pt'
+        model_path = os.environ.get('SIM_SYMBOLICREGRESSION_MODEL_PATH', './symbolicregression/weights/model.pt')
         if torch.cuda.is_available():
             self.model = torch.load(model_path, weights_only=False)
         else:
