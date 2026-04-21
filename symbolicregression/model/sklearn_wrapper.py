@@ -44,10 +44,10 @@ class SymbolicTransformerRegressor(BaseEstimator):
 
     def __init__(self,
                 model=None,
-                max_input_points=10000,
-                max_number_bags=-1,
+                max_input_points=200,
+                max_number_bags=10,
                 stop_refinement_after=1,
-                n_trees_to_refine=1,
+                n_trees_to_refine=10,
                 rescale=True
                 ):
 
